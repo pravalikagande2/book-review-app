@@ -68,63 +68,63 @@ const BookDetailsPage = () => {
 
   return (
     <div className="container mt-5">
-      <div className="card mb-4">
-        <div className="card-body">
-          <h1 className="card-title h2">{book.title}</h1>
-          <h5 className="card-subtitle mb-2 text-body-secondary">by {book.author}</h5>
-          <p className="card-text"><small className="text-body-secondary">Published: {book.publishedYear} | Genre: {book.genre}</small></p>
-          <p className="card-text">{book.description}</p>
-        </div>
-      </div>
-
-      {user && (
-        <div className="card mb-4">
-          <div className="card-body">
-            <h2 className="card-title h4">Write a Review</h2>
-            {reviewError && <p className="alert alert-danger">{reviewError}</p>}
-            <form onSubmit={handleReviewSubmit}>
-              <div className="mb-3">
-                <label htmlFor="rating" className="form-label">Rating</label>
-                <select id="rating" value={rating} onChange={(e) => setRating(Number(e.target.value))} className="form-select">
-                  <option value={5}>5 - Excellent</option>
-                  <option value={4}>4 - Very Good</option>
-                  <option value={3}>3 - Good</option>
-                  <option value={2}>2 - Fair</option>
-                  <option value={1}>1 - Poor</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="reviewText" className="form-label">Review</label>
-                <textarea id="reviewText" rows="3" value={reviewText} onChange={(e) => setReviewText(e.target.value)} className="form-control" placeholder="What did you think of the book?"></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary">Submit Review</button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      <div className="card">
-        <div className="card-body">
-          <h2 className="card-title h4 mb-4">Reviews</h2>
-          {reviews.length > 0 ? (
-            <div className="list-group list-group-flush">
-              {reviews.map((review) => (
-                <div key={review._id} className="list-group-item">
-                  <p className="fw-bold">Rating: {review.rating} / 5</p>
-                  <p className="mb-1">{review.reviewText}</p>
-                  {user && user._id === review.userId && (
-                    <button onClick={() => handleDeleteReview(review._id)} className="btn btn-sm btn-outline-danger mt-2">
-                      Delete My Review
-                    </button>
-                  )}
-                </div>
-              ))}
+        <>
+          <div className="card mb-4">
+            <div className="card-body">
+              <h1 className="card-title h2">{book.title}</h1>
+              <h5 className="card-subtitle mb-2 text-body-secondary">by {book.author}</h5>
+              <p className="card-text"><small className="text-body-secondary">Published: {book.publishedYear} | Genre: {book.genre}</small></p>
+              <p className="card-text">{book.description}</p>
             </div>
-          ) : (
-            <p className="text-body-secondary">No reviews yet. Be the first to write one!</p>
+          </div>
+          {user && (
+            <div className="card mb-4">
+              <div className="card-body">
+                <h2 className="card-title h4">Write a Review</h2>
+                {reviewError && <p className="alert alert-danger">{reviewError}</p>}
+                <form onSubmit={handleReviewSubmit}>
+                  <div className="mb-3">
+                    <label htmlFor="rating" className="form-label">Rating</label>
+                    <select id="rating" value={rating} onChange={(e) => setRating(Number(e.target.value))} className="form-select">
+                      <option value={5}>5 - Excellent</option>
+                      <option value={4}>4 - Very Good</option>
+                      <option value={3}>3 - Good</option>
+                      <option value={2}>2 - Fair</option>
+                      <option value={1}>1 - Poor</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="reviewText" className="form-label">Review</label>
+                    <textarea id="reviewText" rows="3" value={reviewText} onChange={(e) => setReviewText(e.target.value)} className="form-control" placeholder="What did you think of the book?"></textarea>
+                  </div>
+                  <button type="submit" className="btn btn-primary">Submit Review</button>
+                </form>
+              </div>
+            </div>
           )}
-        </div>
-      </div>
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title h4 mb-4">Reviews</h2>
+              {reviews.length > 0 ? (
+                <div className="list-group list-group-flush">
+                  {reviews.map((review) => (
+                    <div key={review._id} className="list-group-item">
+                      <p className="fw-bold">Rating: {review.rating} / 5</p>
+                      <p className="mb-1">{review.reviewText}</p>
+                      {user && user._id === review.userId && (
+                        <button onClick={() => handleDeleteReview(review._id)} className="btn btn-sm btn-outline-danger mt-2">
+                          Delete My Review
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-body-secondary">No reviews yet. Be the first to write one!</p>
+              )}
+            </div>
+          </div>
+        </>
     </div>
   );
 };

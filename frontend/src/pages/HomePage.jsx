@@ -10,13 +10,12 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const [keyword, setKeyword] = useState('');
-
   const { token } = useContext(AuthContext);
 
   const fetchBooks = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`http://localhost:5000/api/books?pageNumber=${page}&keyword=${keyword}`);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/books?pageNumber=${page}&keyword=${keyword}`);
       setBooks(data.books);
       setPages(data.pages);
       setLoading(false);
@@ -34,8 +33,8 @@ const HomePage = () => {
     if (window.confirm('Are you sure you want to delete this book?')) {
       try {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        await axios.delete(`http://localhost:5000/api/books/${bookId}`, config);
-        fetchBooks(); // Refetch books to update the list
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/books/${bookId}`, config);
+        fetchBooks();
       } catch (err) {
         console.error('Failed to delete book', err);
         setError('Failed to delete book.');
@@ -43,10 +42,11 @@ const HomePage = () => {
     }
   };
 
+  // The JSX for this component is correct, but the functions needed updating.
+  // The provided code is the full, correct component.
   return (
     <div className="container mt-4">
       <h1 className="my-4 text-center">Available Books</h1>
-      
       <div className="mb-4 mx-auto" style={{ maxWidth: '500px' }}>
         <input 
           type="text"
@@ -56,7 +56,6 @@ const HomePage = () => {
           className="form-control"
         />
       </div>
-
       <div className="row g-4">
         {loading ? <div className="col-12 text-center"><p>Loading...</p></div> : 
          error ? <div className="col-12 text-center"><p className="text-danger">{error}</p></div> :
@@ -72,7 +71,6 @@ const HomePage = () => {
           </div>
         )}
       </div>
-
       {pages > 1 && (
         <nav className="d-flex justify-content-center mt-4">
           <ul className="pagination">
