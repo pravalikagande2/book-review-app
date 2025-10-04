@@ -28,7 +28,7 @@ const AddBookPage = () => {
         },
       };
       
-      await axios.post('http://localhost:5000/api/books', { title, author, description, genre, publishedYear }, config);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/books`, { title, author, description, genre, publishedYear }, config);
       
       navigate('/'); // Redirect to home page on success
     } catch (err) {
